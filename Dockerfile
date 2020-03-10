@@ -2,7 +2,7 @@ FROM debian:buster-slim
 
 WORKDIR /var/www/ft_server/public_html
 COPY srcs/ft_server.conf /etc/nginx/sites-available/
-COPY srcs/config.inc.php phpmyadmin/
+# COPY srcs/config.inc.php phpmyadmin/
 COPY srcs/phpMyAdmin-5.0.1-all-languages.tar /tmp/
 COPY srcs/wordpress-5.3.2.tar.gz /tmp/
 COPY srcs/setup.sh /tmp/

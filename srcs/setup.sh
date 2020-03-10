@@ -7,6 +7,9 @@
 # -> phpMyAdmin
 # -> WordPress CMS
 
+USER=cadet
+PASSWD=42saopaulo
+
 ROOT_DIR=/var/www/ft_server/public_html
 NGINX_DIR=/etc/nginx
 
@@ -18,12 +21,11 @@ WORDPRESS_DIR=$ROOT_DIR/wordpress
 
 # NGINX Server Configuration
 mkdir -p $ROOT_DIR
-# cp /var/www/html/index.nginx-debian.html $ROOT_DIR
+rm $NGINX_DIR/sites-enabled/default
 ln -s /etc/nginx/sites-available/ft_server.conf /etc/nginx/sites-enabled/
+echo -e "127.0.0.1	ftserver" >> /etc/hosts
 
 # OpenSSL Key Generation
-#openssl req -x509 -nodes -new -sha256 -days 1024 -newkey rsa:2048 \
-#	-keyout common.key -out common.pem -subj "/C=BR"
 openssl req -x509 -out $NGINX_DIR/localhost.crt -keyout $NGINX_DIR/localhost.key \
 	-newkey rsa:2048 -nodes -sha256 \
 	-subj '/CN=localhost' -extensions EXT -config <( \
@@ -36,11 +38,15 @@ openssl req -x509 -out $NGINX_DIR/localhost.crt -keyout $NGINX_DIR/localhost.key
 			extendedKeyUsage=serverAuth")
 
 # Database Setup and Configuration
+service mysql start
+mysql < $PHPMYADMINDIR/sql/create_tables.sql
+mysql -u root -e	"CREATE USER '$USER' IDENTIFIED BY '$PASSWD';\
+					GRANT ALL PRIVILEGES TO '$USER'@'localhost';"
 
 # phpMyAdmin Installation and Configuration
 # mkdir $PHPMYADMIN_DIR
 tar -C $PHPMYADMIN_DIR -xf /tmp/$PHPMYADMIN_PACKAGE --strip-components 1
-# cp $PHPMYADMIN_DIR/config.{sample.,}inc.php
+echo "" >> 
 
 # Wordpress Installation and Configuration
 mkdir $WORDPRESS_DIR
