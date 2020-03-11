@@ -38,15 +38,13 @@ openssl req -x509 -out $NGINX_DIR/localhost.crt -keyout $NGINX_DIR/localhost.key
 			extendedKeyUsage=serverAuth")
 
 # Database Setup and Configuration
-service mysql start
-mysql < $PHPMYADMINDIR/sql/create_tables.sql
+# service mysql start
 mysql -u root -e	"CREATE USER '$USER' IDENTIFIED BY '$PASSWD';\
-					GRANT ALL PRIVILEGES TO '$USER'@'localhost';"
+					 GRANT ALL PRIVILEGES TO '$USER'@'localhost';"
 
 # phpMyAdmin Installation and Configuration
-# mkdir $PHPMYADMIN_DIR
+mkdir $PHPMYADMIN_DIR
 tar -C $PHPMYADMIN_DIR -xf /tmp/$PHPMYADMIN_PACKAGE --strip-components 1
-echo "" >> 
 
 # Wordpress Installation and Configuration
 mkdir $WORDPRESS_DIR
