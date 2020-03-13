@@ -26,16 +26,7 @@ ln -s /etc/nginx/sites-available/ft_server.conf /etc/nginx/sites-enabled/
 echo -e "127.0.0.1	ftserver" >> /etc/hosts
 
 # OpenSSL Key Generation
-openssl req -x509 -out $NGINX_DIR/localhost.crt -keyout $NGINX_DIR/localhost.key \
-	-newkey rsa:2048 -nodes -sha256 \
-	-subj '/CN=localhost' -extensions EXT -config <( \
-	printf	"[dn]\n
-			CN=localhost\n
-			[req]\n
-			distinguished_name = dn\n
-			[EXT]\nsubjectAltName=DNS:localhost\n
-			keyUsage=digitalSignature\n
-			extendedKeyUsage=serverAuth")
+/tmp/certificate_authority.sh
 
 # Database Setup and Configuration
 # service mysql start
