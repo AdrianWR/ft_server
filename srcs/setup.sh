@@ -3,12 +3,9 @@
 # This setup configuration file installs
 # and configure the following packages:
 # -> Nginx Web Server
-# -> MariaDB
+# -> MySQL
 # -> phpMyAdmin
 # -> WordPress CMS
-
-USER=cadet
-PASSWD=42saopaulo
 
 ROOT_DIR=/var/www/ft_server/public_html
 NGINX_DIR=/etc/nginx
@@ -29,9 +26,8 @@ echo -e "127.0.0.1	ftserver" >> /etc/hosts
 /tmp/certificate_authority.sh
 
 # Database Setup and Configuration
-# service mysql start
-mysql -u root -e	"CREATE USER '$USER' IDENTIFIED BY '$PASSWD';\
-					 GRANT ALL PRIVILEGES TO '$USER'@'localhost';"
+service mysql start
+mysql -u root -p'root' -e "CREATE USER '$USER' IDENTIFIED BY '$PASSWD';"
 
 # phpMyAdmin Installation and Configuration
 mkdir $PHPMYADMIN_DIR

@@ -1,21 +1,30 @@
-FROM debian:buster-slim
+FROM debian:buster
 
 WORKDIR /var/www/ft_server/public_html
 COPY srcs/ft_server.conf /etc/nginx/sites-available/
-# COPY srcs/config.inc.php phpmyadmin/
 COPY srcs/phpMyAdmin-5.0.1-all-languages.tar /tmp/
 COPY srcs/wordpress-5.3.2.tar.gz /tmp/
+COPY srcs/certificate_authority.sh /tmp/
+COPY srcs/domains.ext /tmp/
+COPY srcs/mysql_install.sh /tmp/
 COPY srcs/setup.sh /tmp/
+COPY srcs/services.sh /tmp/
+
+# SysAdmin Credentials. Can be passed as argument at build time.
+ARG USER=cadet
+ARG PASSWD=42saopaulo
+ARG ROOT_PASSWD=root
 
 RUN apt-get update && apt-get install -y \
+	apt-utils gnupg \
 	nginx \
 	openssl \
-	mariadb-server \
-	php7.3 php7.3-fpm php7.3-mysql
-RUN bash /tmp/setup.sh
+	php php-fpm php-mysql php-mbstring
+RUN /tmp/mysql_install.sh $ROOT_PASSWD
+RUN /tmp/setup.sh
 
-EXPOSE 80 443
+EXPOSE 80 443 3306
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
 #CMD ["nginx", "-g", "daemon off;"]
-#ENTRYPOINT ["/bin/bash"]
+#ENTRYPOINT ["/tmp/services.sh"]
