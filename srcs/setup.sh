@@ -28,15 +28,19 @@ source $ROOT_DIR/autoindex.sh $AUTO_INDEX
 
 # Database Setup and Configuration
 service mysql start
-mysql -u root -p'root' -e "CREATE USER '$USER' IDENTIFIED BY '$PASSWD';"
+mysql -e "CREATE USER '$USER' IDENTIFIED BY '$PASSWD';"
+mysql -e "CREATE DATABASE phpmyadmin;"
+mysql -e "GRANT ALL PRIVILEGES ON *.* TO '$USER';"
 
 # phpMyAdmin Installation and Configuration
 mkdir $PHPMYADMIN_DIR
 tar -C $PHPMYADMIN_DIR -xf /tmp/$PHPMYADMIN_PACKAGE --strip-components 1
+mysql phpmyadmin < /tmp/phpmyadmin.sql
 
 # Wordpress Installation and Configuration
 mkdir $WORDPRESS_DIR
 tar -C $WORDPRESS_DIR -xf /tmp/$WORDPRESS_PACKAGE --strip-components 1
+mysql wordpress < /tmp/wordpress.sql
 
 # Permissions Changes
 chown -R www-data:www-data /var/www/*
