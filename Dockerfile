@@ -32,6 +32,4 @@ RUN apt-get update && apt-get install -y \
 RUN /tmp/setup.sh
 EXPOSE 80 443 3306
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
-#CMD ["nginx", "-g", "daemon off;"]
-#ENTRYPOINT ["/tmp/services.sh"]
+ENTRYPOINT ["/tmp/services.sh"]

@@ -42,6 +42,6 @@ mysql phpmyadmin < /tmp/phpmyadmin.sql
 tar -C $WORDPRESS_DIR -xf /tmp/$WORDPRESS_PACKAGE --strip-components 1
 mysql wordpress < /tmp/wordpress.sql
 
-# Permissions Changes
+# Permissions Changes and Server Execution
 chown -R www-data:www-data /var/www/*
 chmod -R 755 /var/www/*
