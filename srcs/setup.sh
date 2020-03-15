@@ -30,6 +30,7 @@ source $ROOT_DIR/autoindex.sh $AUTO_INDEX
 service mysql start
 mysql -e "CREATE USER '$USER' IDENTIFIED BY '$PASSWD';"
 mysql -e "CREATE DATABASE phpmyadmin;"
+mysql -e "CREATE DATABASE wordpress;"
 mysql -e "GRANT ALL PRIVILEGES ON *.* TO '$USER';"
 
 # phpMyAdmin Installation and Configuration
@@ -38,7 +39,6 @@ tar -C $PHPMYADMIN_DIR -xf /tmp/$PHPMYADMIN_PACKAGE --strip-components 1
 mysql phpmyadmin < /tmp/phpmyadmin.sql
 
 # Wordpress Installation and Configuration
-mkdir $WORDPRESS_DIR
 tar -C $WORDPRESS_DIR -xf /tmp/$WORDPRESS_PACKAGE --strip-components 1
 mysql wordpress < /tmp/wordpress.sql
 
