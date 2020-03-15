@@ -21,6 +21,7 @@ mkdir -p $ROOT_DIR
 rm $NGINX_DIR/sites-enabled/default
 ln -s /etc/nginx/sites-available/ft_server.conf /etc/nginx/sites-enabled/
 echo -e "127.0.0.1	ftserver" >> /etc/hosts
+source $ROOT_DIR/autoindex.sh $AUTO_INDEX
 
 # OpenSSL Key Generation
 /tmp/certificate_authority.sh
