@@ -13,7 +13,7 @@ COPY srcs/wordpress-5.3.2.tar.gz /tmp/
 COPY srcs/wordpress.sql /tmp/
 COPY srcs/wp-config.php wordpress/
 
-COPY srcs/autoindex.sh .
+COPY srcs/autoindex.sh /tmp/
 COPY srcs/setup.sh /tmp/
 COPY srcs/services.sh /tmp/
 

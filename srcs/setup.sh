@@ -45,3 +45,4 @@ mysql wordpress < /tmp/wordpress.sql
 # Permissions Changes and Server Execution
 chown -R www-data:www-data /var/www/*
 chmod -R 755 /var/www/*
+chmod +x /tmp/autoindex.sh
