@@ -17,6 +17,8 @@ if [[ "$INDEX" == "off" || "$INDEX" == "on" ]];
 then
 	sed -i -E "/autoindex/ s/on|off/$INDEX/" $CONFIG_FILE
 	export AUTO_INDEX=$INDEX
+	nginx -s reload
+	echo "Auto index option set to '$INDEX'"
 else
 	echo "Variable not accepted. Insert 'on' or 'off'"
 fi
